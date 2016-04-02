@@ -1,0 +1,2 @@
+alyseer hoe vaak elke letter van het alfabet voorkomt in de tekst (enkel de letters uit het alfabet, geen onderscheid tussen hoofdletters en kleine letters)
+Toon de resultaten op het scherm
