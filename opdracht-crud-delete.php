@@ -106,7 +106,9 @@
 						</td>
 					</tr>
 				<?php endforeach ?>
+				
 			</tbody>
+
 		</table>
 	</form>
 	

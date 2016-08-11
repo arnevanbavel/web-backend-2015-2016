@@ -51,7 +51,7 @@
                 if ( isset( $userData['data'][ 0 ] ) ) //als userdata inhoud bevat is het teken dat er al een user is met dat email adress
                 {
                     $_SESSION[ 'error' ][ 'type' ]	= "email" ;
-                    $_SESSION[ 'error' ][ 'text' ]	= "De gebruiker met het e-mailadres " . $email . "komt reeds voor in onze database." ); 
+                    $_SESSION[ 'error' ][ 'text' ]	= "De gebruiker met het e-mailadres " . $email . "komt reeds voor in onze database." ; 
     
                     header('location: registratie-form.php' );
                 }
