@@ -1,0 +1,9 @@
+RewriteEngine On
+
+#Wanneer ../Deel2/rasmus -> achter schermen original.php?user=rasmus
+RewriteRule ^rasmus/?$ original.php?user=rasmus 
+
+
+#RewriteRule ^([^/\.]+)/?$ original.php?user=$1
+
+ 

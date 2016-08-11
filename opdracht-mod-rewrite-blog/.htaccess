@@ -1,0 +1,12 @@
+RewriteEngine On
+RewriteRule ^artikels$ artikel-overzicht.php
+
+RewriteRule ^artikels/toevoegen$ artikels-toevoegen-form.php
+
+RewriteRule ^artikels/toevoegen/confirm$ artikel-toevoegen.php
+
+RewriteRule ^artikels/zoeken$ artikel-zoeken-redirect.php
+
+RewriteRule ^artikels/zoeken/content/(\S*)$ artikel-zoeken.php?zoeken-artikel=$1
+
+RewriteRule ^artikels/zoeken/datum/(\S*)$ artikel-zoeken.php?zoeken-datum=$1
