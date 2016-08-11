@@ -18,6 +18,7 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+Route::get('comment/edit/{id}', 'CommentController@edit');
 
 Route::get('{artikel}/comment', ['as' => 'comment', 'uses' => 'CommentController@index']);
 Route::post('{artikel}/post_this_comment', 'CommentController@post_this_comment');

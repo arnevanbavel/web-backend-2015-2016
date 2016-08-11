@@ -57,7 +57,7 @@ class CommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-      public function show($id, User $user)
+      public function show($id)
     {
         
         $artikel = Artikel::findOrFail($id);
@@ -84,7 +84,8 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $comment = Comment::findOrFail($id);
+        return view('comment.edit', compact('comment'));
     }
 
     /**
@@ -96,7 +97,22 @@ class CommentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+          
+        $comment = Comment::findOrFail($id);
+        $this->validate($request, [
+            'comment' => 'required|max:255' 
+        ]);
+    
+        $data = $request->only('comment');
+        $comment->update($data);
+        
+        $artikel = Artikel::findOrFail($request->artikel_id);
+        $comments = Comment::with('user')
+                    ->where('artikel_id', '=', $id)
+                    ->get();
+           
+        return back();
+
     }
 
     /**
@@ -107,6 +123,7 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Comment::find($id)->delete();
+        return redirect('/home');
     }
 }

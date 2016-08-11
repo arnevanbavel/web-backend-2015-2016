@@ -17,7 +17,7 @@
                                 <i class="glyphicon glyphicon-user" style="padding-left: 15px;"> {{ $comment->user->name }}</i> 
                                 @if(Auth::check())
                                 @if ($comment->user->name == Auth::user()->name )
-                                    <i class="glyphicon glyphicon-pencil" style="padding-left: 15px;"></i> <a href="{{ action('CommentController@edit', $artikel->id) }}">Edit</a>
+                                    <i class="glyphicon glyphicon-pencil" style="padding-left: 15px;"></i> <a id='links' href="{{ url('comment/edit', $comment->id)}}">Edit</a>
                                 @endif
                                 @endif
                                 
