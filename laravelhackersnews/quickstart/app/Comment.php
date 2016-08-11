@@ -13,7 +13,7 @@ class Comment extends Model
      *
      * @var array
      */
-    protected $fillable = ['post_id', 'comment', 'user_id'];
+    protected $fillable = ['comment', 'artikel_id', 'user_id', 'updated_at', 'created_at'];
 
     /**
      * Get comments that have no parents

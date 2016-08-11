@@ -25,4 +25,8 @@ class Artikel extends Model
     public function comments() {
         return $this->hasMany('App\Comment');
     }
+    
+    public function moderators() {
+        return $this->hasMany('App\Moderator');
+    }
 }

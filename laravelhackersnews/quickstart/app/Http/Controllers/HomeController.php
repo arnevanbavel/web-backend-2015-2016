@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\User;
+use App\Artikel;
+use App\Moderator;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        
     }
 
     /**
@@ -22,8 +25,15 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Artikel $artikel, Moderator $moderator, User $user)
     {
-        return view('home');
+
+        $artikels = Artikel::with('user.votes')->orderBy('created_at', 'desc')->get();
+        $isModerator = false;
+
+        return view('home')->with('artikels', $artikels)->with('isModerator', $isModerator);
     }
+
+    
+    
 }

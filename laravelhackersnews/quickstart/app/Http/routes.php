@@ -19,34 +19,21 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-
-
-Route::controllers([
-    'auth' => 'Auth\AuthController',
-    'password' => 'Auth\PasswordController',
-]);
-
-// Password reset routes...
-Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
-Route::post('password/reset', 'Auth\PasswordController@postReset');
-
-
-Route::get('{post}/comment', ['as' => 'comment', 'uses' => 'CommentController@index']);
-Route::post('{post}/post_this_comment', 'CommentController@post_this_comment');
-Route::get('{post}/recaptcha', 'CommentController@recaptcha');
-Route::get('{post}/reply_comment', 'CommentController@reply_comment');
-Route::post('{post}/per_page', ['as' => 'per_page', 'uses' => 'CommentController@per_page']);
-Route::post('{post}/comment/update', ['as' => 'comment/update', 'uses' => 'CommentController@update']);
+Route::get('{artikel}/comment', ['as' => 'comment', 'uses' => 'CommentController@index']);
+Route::post('{artikel}/post_this_comment', 'CommentController@post_this_comment');
+Route::get('{artikel}/recaptcha', 'CommentController@recaptcha');
+Route::get('{artikel}/reply_comment', 'CommentController@reply_comment');
+Route::post('{artikel}/per_page', ['as' => 'per_page', 'uses' => 'CommentController@per_page']);
+Route::post('{artikel}/comment/update', ['as' => 'comment/update', 'uses' => 'CommentController@update']);
 
 
 Route::get('data/islogged', function() {
     return Response::json( array('status' => Auth::check()));
 });
 
-Route::resource('posts', 'PostsController');
+Route::resource('artikels', 'ArtikelsController');
 Route::resource('votes', 'VotesController');
-Route::resource('commentvotes', 'CommentVotesController');
-Route::resource('profile', 'ProfilesController');
+Route::resource('comment', 'CommentController');
 
 Route::get('u/{name}', [
     'as' => 'profile_path',

@@ -8,7 +8,9 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                        @foreach($artikels as $artikel)
+                            @include('partials/artikel')
+                        @endforeach
                 </div>
             </div>
         </div>
