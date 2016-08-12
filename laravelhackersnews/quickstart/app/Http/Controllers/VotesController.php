@@ -51,6 +51,7 @@ class VotesController extends Controller
             ->where('artikel_id', '=', $id)
             ->update(['down' => $vote->down,'up' => $vote->up,'algeklikt' => $vote->algeklikt]);
         
+        
         return back();
     }
     
