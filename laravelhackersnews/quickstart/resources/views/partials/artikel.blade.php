@@ -7,11 +7,16 @@
         </div>
         <div class="row">
             <div class="col-md-1">
-                <div class="upvote topic upvote-disabled" data-post="{{ $artikel->id }}">
-                    <a id="up" class="upvote vote {{ $artikel->votes && $artikel->votes->contains('user_id', Auth::id()) ? ($artikel->votes->where('user_id', Auth::id())->first()->value > 0 ? 'upvote-on' : null) : null}}" data-value="1" data-post-id="{{ $artikel->id }}"></a>
-                    <!-- Notice how we set the sum of the votes for this post here -->
-                    <span class="count">{{ $artikel->votes->sum('value') }}</span>
-                    <a id="down" class="downvote vote {{ $artikel->votes && $artikel->votes->contains('user_id', Auth::id()) ? ($artikel->votes->where('user_id', Auth::id())->first()->value < 0 ? 'downvote-on' : null) : null}}" data-value="-1" data-post-id="{{ $artikel->id }}"></a>
+                <div class="vote" data-post="{{ $artikel->id }}">
+                    <form method="POST" action="{{ url('vote/up')}}/{{$artikel->id }}">
+					{{ csrf_field() }}
+					   <button name="id" value="2" class="btn"><i class="glyphicon glyphicon-triangle-top" title="upvote"></i></button>
+				    </form>
+                    <span class="count">{{ $artikel->value }}</span>
+                    <form method="POST" action="{{ url('vote/down')}}/{{$artikel->id }}">
+					{{ csrf_field() }}
+					   <button name="id" value="2" class="btn"><i class="glyphicon glyphicon-triangle-bottom" title="downvote"></i></button>
+				    </form>
                 </div>
             </div>
             <div class="col-md-10">
@@ -30,9 +35,6 @@
                     
 
                 </p>
-                @if(Request::is('artikels/*'))
-                    <p>{!!  $artikel->text !!}</p>
-                @endif
             </div>
         </div>
     </div>

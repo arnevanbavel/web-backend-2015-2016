@@ -32,7 +32,7 @@ class User extends Authenticatable
     }
 
     public function votes() {
-        return $this->hasManyThrough('App\Vote','App\Artikel');
+        return $this->hasmany('App\Vote');
     }
     
     public function moderators() {

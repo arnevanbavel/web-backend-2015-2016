@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Artikel;
+use App\Vote;
+use Auth;
+use DB;
+use App\User;
 use App\Http\Requests;
 
 class VotesController extends Controller
@@ -13,6 +17,99 @@ class VotesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function voteup($id)
+    {        
+        $this->first($id);
+        
+        $vote = DB::table('votes')
+        ->where('user_id', '=', Auth::user()->id)
+        ->where('artikel_id', '=', $id)
+        ->first();
+        
+        $artikel = Artikel::findOrFail($id);
+        
+        if($vote->algeklikt == false){            
+           
+            $artikel->value++;
+            $vote->down = true;
+            $vote->up = false;
+            $vote->algeklikt = true;
+            
+        }elseif($vote->down == false && $vote->up == true){
+            
+            $artikel->value++;
+            $artikel->value++;
+            
+            $vote->down = true;
+            $vote->up = false;
+        
+        }
+        
+        $artikel->save();
+        DB::table('votes')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('artikel_id', '=', $id)
+            ->update(['down' => $vote->down,'up' => $vote->up,'algeklikt' => $vote->algeklikt]);
+        
+        return back();
+    }
+    
+    public function votedown($id)
+    {
+        $this->first($id);
+        
+        $vote = DB::table('votes')
+        ->where('user_id', '=', Auth::user()->id)
+        ->where('artikel_id', '=', $id)
+        ->first();
+        
+        $artikel = Artikel::findOrFail($id);
+        
+        if($vote->algeklikt == false){            
+           
+            $artikel->value--;
+            $vote->down = false;
+            $vote->up = true;
+            $vote->algeklikt = true;
+            
+        }elseif($vote->down == true && $vote->up == false){
+            
+            $artikel->value--;
+            $artikel->value--;
+            
+            $vote->down = false;
+            $vote->up = true;
+        
+        }
+        
+        $artikel->save();
+        DB::table('votes')
+            ->where('user_id', '=', Auth::user()->id)
+            ->where('artikel_id', '=', $id)
+            ->update(['down' => $vote->down,'up' => $vote->up,'algeklikt' => $vote->algeklikt]);
+        
+        return back();
+    }
+    
+    public function first($id)
+    {        
+        $user = DB::table('votes')
+        ->where('user_id', '=', Auth::user()->id)
+        ->where('artikel_id', '=', $id)
+        ->first();
+    
+        if (is_null($user)) {
+            
+    	$vote = new Vote;
+
+    	$vote->artikel_id = $id;
+    	$vote->user_id = Auth::user()->id;
+
+    	$vote->save();
+            
+        } 
+    }
+    
     public function index()
     {
         //

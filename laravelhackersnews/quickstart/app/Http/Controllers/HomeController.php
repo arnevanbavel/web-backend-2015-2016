@@ -28,7 +28,7 @@ class HomeController extends Controller
     public function index(Artikel $artikel, Moderator $moderator, User $user)
     {
 
-        $artikels = Artikel::with('user.votes')->orderBy('created_at', 'desc')->get();
+        $artikels = Artikel::with('user.votes')->orderBy('value', 'desc')->get();
         $isModerator = false;
 
         return view('home')->with('artikels', $artikels)->with('isModerator', $isModerator);
