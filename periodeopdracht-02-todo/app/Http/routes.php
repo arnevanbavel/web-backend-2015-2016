@@ -10,14 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-//
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-// Route::auth();
-// Route::get('/todos', 'TodoController@index');
-// Route::post('/todo', 'TodoController@store');
-// Route::delete('/todo/{todo}', 'TodoController@destroy');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -33,25 +26,30 @@
 Route::group(['middleware' => ['web']], function () {
 
   Route::get('/', function () {
-    if (Auth::check()) {
+    if (Auth::check()) 
+    {
       return view('home');
     }
-    else {
+    else 
+    {
       return view('welcome');
     }
   });
   
   Route::get('/home', function () {
-    if (Auth::check()) {
+    if (Auth::check()) 
+    {
       return view('home');
     }
-    else {
+    else 
+    {
       return view('welcome');
     }
 
   });
 
   //versie test
+  Route::auth();
   Route::get('/test', 'TodoController@indextest');
   Route::post('/teststore', 'TodoController@storetest');
   Route::get('/testdelete/{todo}', 'TodoController@destroytest');
