@@ -15,18 +15,13 @@ class CreateCommentsTable extends Migration
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('artikel_id')->unsigned();
-            $table->string('comment'); // made unique so as to avoid duplicates
+            $table->string('comment');
             $table->integer('user_id')->unsigned();
             $table->softDeletes(); // this adds 'deleted_at' column in the Users table
             $table->timestamps();
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users');
-
-            $table->foreign('artikel_id')
-                ->references('id')
-                ->on('artikels');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('artikel_id')->references('id')->on('artikels');
         });
     }
 

@@ -16,7 +16,7 @@
     </li>
     <li class="form-field">
         <div class="align-button">
-        {!! Form::submit('Verzenden', ['id' => 'submit', 'class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Send Article', ['id' => 'submit', 'class' => 'btn btn-primary']) !!}
         </div>
     </li>
 </ul>

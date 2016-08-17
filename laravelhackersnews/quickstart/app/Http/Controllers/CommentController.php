@@ -8,6 +8,7 @@ use App\User;
 use App\Comment;
 use App\Http\Requests;
 use DB;
+use Session;
 
 class CommentController extends Controller
 {
@@ -47,7 +48,9 @@ class CommentController extends Controller
             'comment' => $request->comment,
             'artikel_id' => $request->artikel_id,
         ]);
-
+        
+        Session::put('notiftype', 'succes');
+        Session::put('notifmessage', 'comment added succesfully.');  
         return redirect()->back();
     }
 
@@ -110,7 +113,9 @@ class CommentController extends Controller
         $comments = Comment::with('user')
                     ->where('artikel_id', '=', $id)
                     ->get();
-           
+        
+        Session::put('notiftype', 'succes');
+        Session::put('notifmessage', 'comment edited succesfully.');  
         return back();
 
     }

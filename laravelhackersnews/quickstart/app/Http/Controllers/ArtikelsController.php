@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Artikel;
 use App\User;
 use App\Comment;
+use DB;
+use Session;
 
 class ArtikelsController extends Controller
 {
@@ -54,7 +56,9 @@ class ArtikelsController extends Controller
             'title' => $request->title,
             'link' => $request->link
         ]);
-
+        
+        Session::put('notiftype', 'success');
+        Session::put('notifmessage', 'Je hebt het artikel "' . $request->title . '" toegevoegd!');
         return redirect('/home');
     }
     /**
@@ -97,6 +101,9 @@ class ArtikelsController extends Controller
         $data = $request->only('title', 'link');
 
         $artikel->update($data);
+        
+        Session::put('notiftype', 'succes');
+        Session::put('notifmessage', 'Article ' . $artikel->title . ' edited successfully');  
         return redirect('/home');
     }
 
@@ -106,9 +113,30 @@ class ArtikelsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function confirmdestroy($id)
+    {
+        $artikel = Artikel::findOrFail($id);
+        
+        Session::put('notiftype', 'warning');
+        Session::put('notifmessage', 'Weet je zeker dat je artikel "' . $artikel->title . '" wilt verwijderden!');  
+
+        return back();
+    }
+    
     public function destroy($id)
     {
+        $vote = DB::table('votes')->where('artikel_id', $id);
+        $vote->delete();
+        
+        $comment = DB::table('comments')->where('artikel_id', $id);
+        $comment->delete();
+        
+        Session::put('notiftype', 'succes');
+        Session::put('notifmessage', 'Article deleted successfully');  
+        
         Artikel::find($id)->delete();
+        
+        
         return redirect('/home');
     }
 }

@@ -8,14 +8,14 @@ class Vote extends Model
 {
     protected $table = 'votes';
 
-    protected $fillable = [ 'artikel_id', 'user_id', 'up', 'down', 'algeklikt'
-    ];
+    protected $fillable = [ 'artikel_id', 'user_id', 'up', 'down', 'algeklikt'];
 
+    
     public function user() {
-        return $this->hasmany('App\User');
+        return $this->belongsTo('App\User');
     }
 
     public function artikels() {
-        return $this->hasmany('App\Artikel');
+        return $this->belongsTo('App\Artikel');
     }
 }

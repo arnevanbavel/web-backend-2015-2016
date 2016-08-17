@@ -1,0 +1,14 @@
+.but {
+     background:none;
+     border:none; 
+     padding:0;
+     font: inherit;
+     /*border is optional*/
+     cursor: pointer;
+     font-size: 20px;
+}
+
+.but.disabled {
+  opacity: 0.50; 
+  cursor: default;
+}

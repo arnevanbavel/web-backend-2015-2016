@@ -15,17 +15,13 @@ class CreateVotesTable extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->integer('user_id')->unsigned();
             $table->integer('artikel_id')->unsigned();
-            $table->bool('up')->default(true);
-            $table->bool('down')->default(true);
-            $table->bool('algeklikt')->default(false);
+            $table->boolean('up')->default(true);
+            $table->boolean('down')->default(true);
+            $table->boolean('algeklikt')->default(false);
             $table->timestamps();
-            $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users');
-
-            $table->foreign('artikel_id')
-                ->references('id')
-                ->on('artikels');
+            
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('artikel_id')->references('id')->on('artikels');
         });
     }
 

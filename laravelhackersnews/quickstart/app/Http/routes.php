@@ -19,6 +19,8 @@ Route::resource('artikels', 'ArtikelsController');
 Route::resource('votes', 'VotesController');
 Route::resource('comment', 'CommentController');
 
+Route::get('delete/{id}', 'ArtikelsController@confirmdestroy');
+
 Route::get('/home', 'HomeController@index');
 Route::get('comment/edit/{id}', 'CommentController@edit');
 Route::post('vote/up/{id}', 'VotesController@voteup');
