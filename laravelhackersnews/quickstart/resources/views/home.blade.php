@@ -3,9 +3,9 @@
 @section('content')
 @if (Session::has('notiftype'))
 <div class="container">
-  <div class="alert alert-{{{ Session::get('notiftype') }}} fade in col-sm-offset-1 col-sm-10">
+  <div id="alert-{{{ Session::pull('notiftype') }}}" class="alert alert-{{{ Session::get('notiftype') }}} fade in col-sm-offset-1 col-sm-10">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        {{{ Session::pull('notifmessage') }}}
+        {{ Session::pull('notifmessage') }}
   </div>
 </div>
 @endif

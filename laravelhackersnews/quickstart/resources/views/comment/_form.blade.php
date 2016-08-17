@@ -1,3 +1,4 @@
+
 <li class="form-field">
     <div class="{!! $errors->has('model') ? 'has-error' : '' !!}">
           {!! Form::label('comment', 'Comment:') !!}

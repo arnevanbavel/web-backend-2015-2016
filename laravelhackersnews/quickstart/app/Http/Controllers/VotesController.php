@@ -7,6 +7,7 @@ use App\Artikel;
 use App\Vote;
 use Auth;
 use DB;
+use Session;
 use App\User;
 use App\Http\Requests;
 
@@ -42,7 +43,6 @@ class VotesController extends Controller
             
             $vote->down = true;
             $vote->up = false;
-        
         }
         
         $artikel->save();
@@ -51,7 +51,8 @@ class VotesController extends Controller
             ->where('artikel_id', '=', $id)
             ->update(['down' => $vote->down,'up' => $vote->up,'algeklikt' => $vote->algeklikt]);
         
-        
+        Session::put('notiftype', 'succes');
+        Session::put('notifmessage', 'You have upvoted "' . $artikel->title .'"');
         return back();
     }
     
@@ -89,6 +90,8 @@ class VotesController extends Controller
             ->where('artikel_id', '=', $id)
             ->update(['down' => $vote->down,'up' => $vote->up,'algeklikt' => $vote->algeklikt]);
         
+        Session::put('notiftype', 'succes');
+        Session::put('notifmessage', 'You have downvoted "' . $artikel->title .'"');
         return back();
     }
     

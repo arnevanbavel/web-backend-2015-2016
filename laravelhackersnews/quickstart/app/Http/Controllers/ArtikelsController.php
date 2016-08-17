@@ -13,6 +13,7 @@ use Session;
 
 class ArtikelsController extends Controller
 {
+    
     public function __construct()
     {
         $this->middleware('auth');
@@ -96,7 +97,7 @@ class ArtikelsController extends Controller
         $artikel = Artikel::findOrFail($id);
         $this->validate($request, [
             'title' => 'required|max:255'. $artikel->id,
-            'link' => 'required' 
+            'link' => 'required|regex:'.$url 
         ]);
         $data = $request->only('title', 'link');
 
@@ -118,7 +119,8 @@ class ArtikelsController extends Controller
         $artikel = Artikel::findOrFail($id);
         
         Session::put('notiftype', 'warning');
-        Session::put('notifmessage', 'Weet je zeker dat je artikel "' . $artikel->title . '" wilt verwijderden!');  
+        Session::put('notifmessage', 'Are you sure you want to delete "' . $artikel->title . '" comment?');
+        Session::put('delete', 'TRUE');
 
         return back();
     }

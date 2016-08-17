@@ -4,15 +4,8 @@
             </div>
             <div class="col-md-10">
                 <p>
-                        <a href="http://{{ $artikel->link }}" target="_blank">{{ $artikel->title }}</a> 
+                        <a class="linktitle" href="http://{{ $artikel->link }}" target="_blank">{{ $artikel->title }}</a> 
                 </p>
-                @foreach($artikel->votes as $artikelvotes)
-                            @if($artikelvotes->user_id == Auth::user()->id)  
-                                @foreach($artikelvotes-up as $up)
-                                    {{$up->up}}
-                                @endforeach
-                            @endif
-                @endforeach
                 <p style="color: darkgrey; font-size: 12px;">
                     <i class="glyphicon glyphicon-user" style="padding-right: 5px;"></i>submitted by {{ $artikel->user->name}}
                     <i class="glyphicon glyphicon-calendar" style="padding-left: 15px;"></i> {{ $artikel->created_at->diffForHumans() }}
@@ -27,3 +20,4 @@
                 </p>
             </div>
         </div>
+<hr>

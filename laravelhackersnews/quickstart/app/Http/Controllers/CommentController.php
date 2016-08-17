@@ -120,12 +120,16 @@ class CommentController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     public function confirmdestroy($id)
+    {
+        Session::put('notiftype', 'warning');
+        Session::put('notifmessage', 'Are you sure you want to delete this comment?');
+        Session::put('commentid', '$id');
+        Session::put('delete', 'TRUE');
+
+        return back();
+    }
+    
     public function destroy($id)
     {
         Comment::find($id)->delete();

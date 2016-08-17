@@ -20,6 +20,10 @@ Route::resource('votes', 'VotesController');
 Route::resource('comment', 'CommentController');
 
 Route::get('delete/{id}', 'ArtikelsController@confirmdestroy');
+Route::get('/artikeldelete/{id}', 'ArtikelsController@destroy');
+
+Route::get('commentdelete/{id}', 'CommentController@confirmdestroy');
+Route::get('/commentdeletetrue/{id}', 'CommentController@destroy');
 
 Route::get('/home', 'HomeController@index');
 Route::get('comment/edit/{id}', 'CommentController@edit');

@@ -1,17 +1,18 @@
 @extends('layouts/app')
 
 @section('content')
-@if (Session::has('notiftype'))
+@if(Session::has('notiftype'))
 <div class="container">
-  <div class="alert alert-{{{ Session::get('notiftype') }}} fade in col-sm-offset-1 col-sm-10">
+  <div class="alert alert-{{{ Session::pull('notiftype') }}} fade in col-sm-offset-1 col-sm-10">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        {{{ Session::pull('notifmessage') }}}
+        {{{ Session::pull('notifmessage') }}} 
   </div>
 </div>
 @endif
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+            <a href="{{ url('/home') }}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> back to overview</a>
             <div class="panel panel-default">
                 <div class="panel-heading">Article: {{ $artikel->title }}</div>
                 <div class="panel-body">
@@ -22,7 +23,7 @@
                             <p>
                                     <a href="http://{{ $artikel->link }}" target="_blank">{{ $artikel->title }}</a> 
                             </p>
-                            <p style="">
+                            <p style="color: darkgrey; font-size: 12px;">
                                 <i class="glyphicon glyphicon-user" style="padding-right: 5px;"></i>submitted by {{ $artikel->user->name}}
                                 <i class="glyphicon glyphicon-calendar" style="padding-left: 15px;"></i> {{ $artikel->created_at->diffForHumans() }}
                                 <i class="glyphicon glyphicon-comment" style="padding-left: 15px;"></i> {{ $artikel->comments->count() }} Comments
@@ -31,10 +32,10 @@
                                     <i class="glyphicon glyphicon-pencil" style="padding-left: 15px;"></i> <a href="{{ action('ArtikelsController@edit', $artikel->id) }}">Edit</a>
                                 @endif
                                 @endif
-                            </p>                
+                            </p>
+                            <hr>
                         </div>
-                    
-                        <div>
+                        <div class="comments">
                             <br>
                                 <h2> comment (s)</h2>
                              @if($artikel->comments->count() == 0)
@@ -49,7 +50,7 @@
                                     <i class="glyphicon glyphicon-user" style="padding-left: 15px;"> {{ $comment->user->name }}</i> 
                                     @if(Auth::check())
                                     @if ($comment->user->name == Auth::user()->name )
-                                        <i class="glyphicon glyphicon-pencil" style="padding-left: 15px;"></i> <a id='links' href="{{ url('comment/edit', $comment->id)}}">Edit</a>
+                                        <i class="glyphicon glyphicon-pencil" style="padding-left: 15px;"></i> <a href="{{ url('comment/edit', $comment->id)}}">Edit</a>
                                     @endif
                                     @endif
                                     

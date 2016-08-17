@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\User;
+use App\Vote;
 use App\Artikel;
-use App\Moderator;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -27,9 +27,9 @@ class HomeController extends Controller
      */
     public function index(Artikel $artikel, User $user)
     {
-
+        $votes = Vote::all();
         $artikels = Artikel::with('user.votes')->orderBy('value', 'desc')->get();
-        return view('home')->with('artikels', $artikels)->with('artikels', $artikels);
+        return view('home')->with('artikels', $artikels)->with('votes', $votes);
     }
 
     

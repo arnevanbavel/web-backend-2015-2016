@@ -3,7 +3,7 @@
 @section('content')
 @if (Session::has('notiftype'))
 <div class="container">
-  <div class="alert alert-{{{ Session::get('notiftype') }}} fade in col-sm-offset-1 col-sm-10">
+  <div class="alert alert-{{{ Session::pull('notiftype') }}} fade in col-sm-offset-1 col-sm-10">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
     {{{ Session::pull('notifmessage') }}}
   </div>
@@ -12,6 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
+            <a href="{{ url('/comment') }}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> back to overview</a>
             <div class="panel panel-default">
                 <div class="panel-heading">Create Artikel</div>
                     <div class="panel-body">
@@ -23,7 +24,9 @@
                 @if($errors->any())
                     <ul>
                         @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                        <span class="fault">
+                            <strong>{{ $error }}</strong>
+                        </span>
                         @endforeach
                     </ul>
                 @endif
