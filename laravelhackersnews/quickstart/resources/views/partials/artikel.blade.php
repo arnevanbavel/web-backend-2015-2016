@@ -4,7 +4,7 @@
             </div>
             <div class="col-md-10">
                 <p>
-                        <a class="linktitle" href="http://{{ $artikel->link }}" target="_blank">{{ $artikel->title }}</a> 
+                        <a class="linktitle" href="{{ $artikel->link }}" target="_blank">{{ $artikel->title }}</a> 
                 </p>
                 <p style="color: darkgrey; font-size: 12px;">
                     <i class="glyphicon glyphicon-user" style="padding-right: 5px;"></i>submitted by {{ $artikel->user->name}}

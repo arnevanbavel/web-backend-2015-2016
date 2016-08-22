@@ -49,9 +49,16 @@ class ArtikelsController extends Controller
     public function store(Request $request)
     {
        $this->validate($request, [
-            'title' => 'required|max:255',
+            'title' => 'required|max:255',           
             'link' => 'required'   
         ]);
+        
+        if (!filter_var($request->link, FILTER_VALIDATE_URL)) 
+        { 
+            Session::put('notiftype', 'error');
+            Session::put('notifmessage', 'The url format is invalid.');
+            return back();
+        }
     
         $request->user()->artikels()->create([
             'title' => $request->title,
@@ -97,8 +104,16 @@ class ArtikelsController extends Controller
         $artikel = Artikel::findOrFail($id);
         $this->validate($request, [
             'title' => 'required|max:255'. $artikel->id,
-            'link' => 'required|regex:'.$url 
+            'link' => 'required'
         ]);
+        
+        if (!filter_var($request->link, FILTER_VALIDATE_URL)) 
+        { 
+            Session::put('notiftype', 'error');
+            Session::put('notifmessage', 'The url format is invalid.');
+            return back();
+        }
+        
         $data = $request->only('title', 'link');
 
         $artikel->update($data);

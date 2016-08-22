@@ -12,7 +12,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <a href="{{ url('/comment') }}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> back to overview</a>
+            <a href="{{ url('/home') }}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> back to overview</a>
             <div class="panel panel-default">
                 <div class="panel-heading">Create Artikel</div>
                     <div class="panel-body">

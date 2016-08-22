@@ -6,6 +6,10 @@
   <div class="alert alert-{{{ Session::pull('notiftype') }}} fade in col-sm-offset-1 col-sm-10">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         {{{ Session::pull('notifmessage') }}} 
+        @if(Session::pull('delete'))
+            <a class='btn btn-warning btn-xs pull-right' href="{{ action('CommentController@show', $artikel->id) }}">Cancel </a>
+            <a class='btn btn-danger btn-xs pull-right' href="{{ url('artikeldelete/'.$artikel->id ) }}"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+        @endif
   </div>
 </div>
 @endif
@@ -14,14 +18,23 @@
         <div class="col-md-10 col-md-offset-1">
             <a href="{{ url('/home') }}"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> back to overview</a>
             <div class="panel panel-default">
-                <div class="panel-heading">Article: {{ $artikel->title }}</div>
+                <div class="panel-heading">Article: {{ $artikel->title }}
+                    @if(Auth::check())
+                    @if($artikel->user->name == Auth::user()->name)
+                    <a class='btn btn-danger btn-xs pull-right' href="{{ url('delete')}}/{{$artikel->id }}}}">
+                        <span class="glyphicon glyphicon-trash"></span> 
+                        Delete
+                    </a>
+                    @endif
+                    @endif
+                </div>        
                 <div class="panel-body">
                     <div class="col-md-1">
                             @include('partials/buttons')
                         </div>
-                        <div class="col-md-10">
+                        <div class="col-md-11">
                             <p>
-                                    <a href="http://{{ $artikel->link }}" target="_blank">{{ $artikel->title }}</a> 
+                                    <a href="{{ $artikel->link }}" target="_blank">{{ $artikel->title }}</a> 
                             </p>
                             <p style="color: darkgrey; font-size: 12px;">
                                 <i class="glyphicon glyphicon-user" style="padding-right: 5px;"></i>submitted by {{ $artikel->user->name}}
@@ -36,7 +49,6 @@
                             <hr>
                         </div>
                         <div class="comments">
-                            <br>
                                 <h2> comment (s)</h2>
                              @if($artikel->comments->count() == 0)
                                 <p> No comments yet</p>
