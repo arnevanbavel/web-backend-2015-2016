@@ -8,7 +8,7 @@
         {{{ Session::pull('notifmessage') }}} 
         @if(Session::pull('delete'))
             <a class='btn btn-warning btn-xs pull-right' href="{{ action('CommentController@edit', $comment->id) }}">Cancel </a>
-            <a class='btn btn-danger btn-xs pull-right' href="{{ url('commentdeletetrue/'.$comment->id ) }}"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+            <a class='btn btn-danger btn-xs pull-right' href="{{ url('commentdeletetrue/'.Session::get('commentid').'/'.$comment->artikel_id)}}"><span class="glyphicon glyphicon-trash"></span>Delete</a> 
         @endif
   </div>
 </div>

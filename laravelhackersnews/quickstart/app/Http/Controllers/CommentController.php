@@ -49,7 +49,7 @@ class CommentController extends Controller
             'artikel_id' => $request->artikel_id,
         ]);
         
-        Session::put('notiftype', 'succes');
+        Session::put('notiftype', 'success');
         Session::put('notifmessage', 'comment added succesfully.');  
         return redirect()->back();
     }
@@ -130,14 +130,14 @@ class CommentController extends Controller
         return back();
     }
     
-    public function destroy($id)
+    public function destroy($id , $artikelid)
     {
         $comment = Comment::find($id)->first();
-        $artikel = $comment->artikel_id;
+        $commentdelete = $comment->artikel_id;
         Comment::find($id)->delete();
         Session::put('notiftype', 'success');
         Session::put('notifmessage', 'comment deleted succesfully.');  
-        return redirect('/comment/' . $artikel);
+        return redirect('/comment/' . $artikelid);
     }
     
     public function destroy2($id)

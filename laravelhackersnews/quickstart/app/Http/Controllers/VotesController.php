@@ -51,7 +51,7 @@ class VotesController extends Controller
             ->where('artikel_id', '=', $id)
             ->update(['down' => $vote->down,'up' => $vote->up,'algeklikt' => $vote->algeklikt]);
         
-        Session::put('notiftype', 'succes');
+        Session::put('notiftype', 'success');
         Session::put('notifmessage', 'You have upvoted "' . $artikel->title .'"');
         return back();
     }
@@ -90,7 +90,7 @@ class VotesController extends Controller
             ->where('artikel_id', '=', $id)
             ->update(['down' => $vote->down,'up' => $vote->up,'algeklikt' => $vote->algeklikt]);
         
-        Session::put('notiftype', 'succes');
+        Session::put('notiftype', 'success');
         Session::put('notifmessage', 'You have downvoted "' . $artikel->title .'"');
         return back();
     }

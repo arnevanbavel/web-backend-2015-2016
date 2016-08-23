@@ -23,7 +23,7 @@ Route::get('delete/{id}', 'ArtikelsController@confirmdestroy');
 Route::get('/artikeldelete/{id}', 'ArtikelsController@destroy');
 
 Route::get('commentdelete/{id}', 'CommentController@confirmdestroy');
-Route::get('/commentdeletetrue/{id}', 'CommentController@destroy');
+Route::get('commentdeletetrue/{id}/{artikelid}', 'CommentController@destroy');
 Route::get('/commentdeleteartikel/{id}', 'CommentController@destroy2');
 
 Route::get('/home', 'HomeController@index');
