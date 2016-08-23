@@ -114,7 +114,7 @@ class CommentController extends Controller
                     ->where('artikel_id', '=', $id)
                     ->get();
         
-        Session::put('notiftype', 'succes');
+        Session::put('notiftype', 'success');
         Session::put('notifmessage', 'comment edited succesfully.');  
         return back();
 
@@ -124,15 +124,27 @@ class CommentController extends Controller
     {
         Session::put('notiftype', 'warning');
         Session::put('notifmessage', 'Are you sure you want to delete this comment?');
-        Session::put('commentid', '$id');
-        Session::put('delete', 'TRUE');
+        Session::put('commentid', $id);
+        Session::put('delete', 'Comment');
 
         return back();
     }
     
     public function destroy($id)
     {
+        $comment = Comment::find($id)->first();
+        $artikel = $comment->artikel_id;
         Comment::find($id)->delete();
-        return redirect('/home');
+        Session::put('notiftype', 'success');
+        Session::put('notifmessage', 'comment deleted succesfully.');  
+        return redirect('/comment/' . $artikel);
+    }
+    
+    public function destroy2($id)
+    {
+        Comment::find($id)->delete();
+        Session::put('notiftype', 'success');
+        Session::put('notifmessage', 'comment deleted succesfully.');  
+        return back();
     }
 }

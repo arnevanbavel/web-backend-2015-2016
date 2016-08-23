@@ -118,7 +118,7 @@ class ArtikelsController extends Controller
 
         $artikel->update($data);
         
-        Session::put('notiftype', 'succes');
+        Session::put('notiftype', 'success');
         Session::put('notifmessage', 'Article ' . $artikel->title . ' edited successfully');  
         return redirect('/home');
     }
@@ -148,7 +148,7 @@ class ArtikelsController extends Controller
         $comment = DB::table('comments')->where('artikel_id', $id);
         $comment->delete();
         
-        Session::put('notiftype', 'succes');
+        Session::put('notiftype', 'success');
         Session::put('notifmessage', 'Article deleted successfully');  
         
         Artikel::find($id)->delete();

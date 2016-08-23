@@ -5,8 +5,12 @@
 <div class="container">
   <div class="alert alert-{{{ Session::pull('notiftype') }}} fade in col-sm-offset-1 col-sm-10">
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        {{{ Session::pull('notifmessage') }}} 
-        @if(Session::pull('delete'))
+        {{{ Session::pull('notifmessage') }}}
+        @if(Session::get('delete') == 'Comment')
+            <a class='btn btn-warning btn-xs pull-right' href="{{ action('CommentController@show', $artikel->id) }}">Cancel </a>
+            <a class='btn btn-danger btn-xs pull-right' href="{{ url('commentdeleteartikel/'.Session::pull('commentid') ) }}"><span class="glyphicon glyphicon-trash"></span> Delete</a>
+            {{Session::forget('delete')}}
+        @elseif(Session::pull('delete'))
             <a class='btn btn-warning btn-xs pull-right' href="{{ action('CommentController@show', $artikel->id) }}">Cancel </a>
             <a class='btn btn-danger btn-xs pull-right' href="{{ url('artikeldelete/'.$artikel->id ) }}"><span class="glyphicon glyphicon-trash"></span> Delete</a>
         @endif
@@ -62,7 +66,10 @@
                                     <i class="glyphicon glyphicon-user" style="padding-left: 15px;"> {{ $comment->user->name }}</i> 
                                     @if(Auth::check())
                                     @if ($comment->user->name == Auth::user()->name )
-                                        <i class="glyphicon glyphicon-pencil" style="padding-left: 15px;"></i> <a href="{{ url('comment/edit', $comment->id)}}">Edit</a>
+                                        <i class="glyphicon glyphicon-pencil" style="padding-left: 15px;"></i> 
+                                        <a href="{{ url('comment/edit', $comment->id)}}">Edit</a>
+                                        <i class="glyphicon glyphicon-trash" style="padding-left: 15px;"></i>
+                                        <a href="{{ url('commentdelete')}}/{{$comment->id }}}}">Delete</a>
                                     @endif
                                     @endif
                                     
@@ -70,6 +77,7 @@
                                 </p>
                                 </div>
                             @endforeach
+                            <hr>
                         @if(Auth::check())  
                             {!! Form::open(['route' => 'comment.store', 'files' => true])!!}
                                     {{ Form::hidden('artikel_id', $artikel->id) }}

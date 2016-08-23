@@ -54,3 +54,13 @@ color: #D8000C;
 {
     font-size:25px;
 }
+
+.form-field
+{
+    list-style-type: none;
+}
+
+.align-button
+{
+    margin-top:10px;
+}

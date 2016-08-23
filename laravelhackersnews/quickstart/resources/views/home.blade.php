@@ -19,6 +19,9 @@
                         @foreach($artikels as $artikel)
                             @include('partials/artikel')
                         @endforeach
+                    @if(!Auth::check())  
+                        <p>You need to be <a href="{{ url('/login') }}">logged in</a> to vote or comment</p>
+                    @endif
                 </div>
             </div>
         </div>
